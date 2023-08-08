@@ -43,11 +43,11 @@ const APP_SHELL_INMUTABLE=[
                 if(key!== STATIC_CACHE && key.includes('static')){
                     return caches.delete(key);
                 }
-            })
-        })
-
+            });
+        });
+        e.waitUntil(respuesta);
     });
-    e.waitUntil(respuesta);
+ 
 
 
     self.addEventListener('fetch', e=>{
@@ -57,7 +57,8 @@ const APP_SHELL_INMUTABLE=[
             }else{
                 return fetch(e.request).then(newRes=>{
                     return actualizaCacheDinamico(DYNAMIC_CACHE,e.request,newRes);
-                });//console.log(e.request.url);
+                    console.log(e.request.url);
+                });
             }            
         });
         e.respondWith(respuesta);
